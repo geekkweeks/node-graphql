@@ -18,7 +18,8 @@ const categories = [
 ]
 
 const transactions = [
-    { id: "1", productId: "1", quantity: 1, total: 19.99, date: "2021-10-01 22:00:02" },
+    { id: "1", productId: "1", quantity: 1, total: 19.99, dateAt: "2021-10-01 22:00:02" },
+    { id: "3", productId: "2", quantity: 1, total: 19.99, dateAt: "2021-10-01 22:00:02" }
 ]
 
-export { products, categories }
+export { products, categories, transactions }

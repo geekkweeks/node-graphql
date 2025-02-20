@@ -1,6 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { products, categories } from "./_db.js";
+import { products, categories, transactions } from "./_db.js";
 
 // SDL (Schema Definition Language)
 // Define the schema using the SDL
@@ -19,10 +19,21 @@ const typeDefs = `#graphql
         categoryId: Int
     }
 
+    type Transaction{
+        id: ID
+        quantity: Int
+        total: Float
+        dateAt: String
+        Product(id: ID): Product
+    }
+
     type Query {
         products: [Product],
         product(id: ID): Product,
-        categories: [Category]
+        categories: [Category],
+        transactions: [Transaction],
+        transaction(id: ID): Transaction,
+
     }
 `;
 
@@ -33,7 +44,11 @@ const resolvers = {
             console.log("🚀 ~ args:", args)
             return products.find(product => product.id === args.id)
         },
-        categories: () => { return categories }
+        categories: () => { return categories },
+        transactions: () => { return transactions },
+        transaction: (_, args) => {
+            return transactions.find(transaction => transaction.id === args.id)
+        }
     }
 };
 
